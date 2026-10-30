@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Starking | Seguridad Digital</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <h1>🛡️ Secure Starking</h1>
+
+        <p class="subtitulo">
+            Sistema inteligente de clasificación de contraseñas
+        </p>
+
+        <form method="POST" id="formulario">
+
+            <label for="contrasena">
+                Introduce una contraseña de prueba
+            </label>
+
+            <div class="campo-grupo">
+
+                <input
+                    class="campo"
+                    type="password"
+                    id="contrasena"
+                    name="contrasena"
+                    placeholder="Escribe tu contraseña"
+                    required
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    class="boton-ver"
+                    id="mostrar"
+                >
+                    Mostrar
+                </button>
+
+            </div>
+
+            <div class="requisitos">
+
+                <p id="r-longitud">○ Mínimo 8 caracteres</p>
+
+                <p id="r-numero">○ Contiene números</p>
+
+                <p id="r-simbolo">○ Contiene símbolos</p>
+
+            </div>
+
+            <button type="submit">
+                Analizar contraseña
+            </button>
+
+            <button
+                type="reset"
+                class="boton-limpiar"
+            >
+                Limpiar formulario
+            </button>
+
+        </form>
+
+        <div class="barra-contenedor">
+
+            <p>Nivel de seguridad</p>
+
+            <div class="barra-fondo">
+                <div id="barra"></div>
+            </div>
+
+            <p id="nivel">Esperando contraseña...</p>
+
+        </div>
+
+        {% if resultado %}
+
+        <section class="resultado">
+
+            <h2 class="{{ resultado|lower }}">
+                Resultado: {{ resultado }}
+            </h2>
+
+            <p>{{ mensaje }}</p>
+
+            <p>Longitud: {{ longitud }} caracteres</p>
+
+            <p>
+                Contiene números:
+                {{ "Sí" if tiene_numero else "No" }}
+            </p>
+
+            <p>
+                Contiene símbolos:
+                {{ "Sí" if tiene_simbolo else "No" }}
+            </p>
+
+        </section>
+
+        {% endif %}
+
+        <footer class="pie">
+            Secure Starking © 2026
+            <br>
+            Proyecto educativo de ciberseguridad
+        </footer>
+
+    </main>
+
+    <script>
+
+        const campo = document.getElementById("contrasena");
+        const mostrar = document.getElementById("mostrar");
+        const barra = document.getElementById("barra");
+        const nivel = document.getElementById("nivel");
+
+        function actualizarEstado() {
+
+            const texto = campo.value;
+
+            const longitud = texto.length;
+
+            const numero = /[0-9]/.test(texto);
+
+            const simbolo = /[@#$%&]/.test(texto);
+
+            const rLongitud = document.getElementById("r-longitud");
+            const rNumero = document.getElementById("r-numero");
+            const rSimbolo = document.getElementById("r-simbolo");
+
+            rLongitud.textContent =
+                (longitud >= 8 ? "✓ " : "○ ") +
+                "Mínimo 8 caracteres";
+
+            rNumero.textContent =
+                (numero ? "✓ " : "○ ") +
+                "Contiene números";
+
+            rSimbolo.textContent =
+                (simbolo ? "✓ " : "○ ") +
+                "Contiene símbolos";
+
+            if (longitud === 0) {
+
+                barra.style.width = "0%";
+                nivel.textContent = "Esperando contraseña...";
+
+            } else if (longitud < 8) {
+
+                barra.style.width = "25%";
+                nivel.textContent = "Nivel: Débil";
+
+            } else if (
+                longitud >= 12 && numero && simbolo
+            ) {
+
+                barra.style.width = "100%";
+                nivel.textContent = "Nivel: Fuerte";
+
+            } else {
+
+                barra.style.width = "60%";
+                nivel.textContent = "Nivel: Medio";
+
+            }
+
+        }
+
+        campo.addEventListener("input", actualizarEstado);
+
+        mostrar.addEventListener("click", function() {
+
+            if (campo.type === "password") {
+
+                campo.type = "text";
+                mostrar.textContent = "Ocultar";
+
+            } else {
+
+                campo.type = "password";
+                mostrar.textContent = "Mostrar";
+
+            }
+
+        });
+
+        document.getElementById("formulario")
+            .addEventListener("reset", function() {
+
+                setTimeout(function() {
+
+                    campo.type = "password";
+                    mostrar.textContent = "Mostrar";
+                    actualizarEstado();
+
+                }, 0);
+
+            });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+/* CAMPO Y BOTON MOSTRAR */
+
+.campo-grupo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.campo-grupo .campo {
+    flex: 1;
+    min-width: 0;
+}
+
+.boton-ver {
+    width: auto;
+    margin-top: 0;
+    padding: 15px 12px;
+    background: #334b6d;
+}
+
+/* REQUISITOS */
+
+.requisitos {
+    margin-top: 18px;
+    padding: 15px;
+    background: #0b1220;
+    border-radius: 10px;
+}
+
+.requisitos p {
+    color: #a8b6ca;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+/* BARRA DE SEGURIDAD */
+
+.barra-contenedor {
+    margin-top: 25px;
+}
+
+.barra-contenedor p {
+    font-size: 14px;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+
+.barra-fondo {
+    width: 100%;
+    height: 10px;
+    background: #334155;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#barra {
+    width: 0%;
+    height: 100%;
+    background: #38bdf8;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+/* BOTON LIMPIAR */
+
+.boton-limpiar {
+    background: #334155;
+    margin-top: 10px;
+}
+
+.boton-limpiar:hover {
+    background: #475569;
+}
+
+/* RESULTADOS */
+
+.resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background: #0b1220;
+    border-radius: 12px;
+    border: 1px solid #334b6d;
+}
+
+.resultado p {
+    margin-top: 10px;
+    color: #cbd5e1;
+}
+
+.debil {
+    color: #f87171;
+}
+
+.media {
+    color: #facc15;
+}
+
+.fuerte {
+    color: #4ade80;
+}
+
